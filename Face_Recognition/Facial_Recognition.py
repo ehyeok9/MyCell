@@ -5,17 +5,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
 
-class Face_Recognition:
+folder_path = "/home/user/Software-Project-II---AD-project/"
+data_path = [folder_path + 'Face_Recognition/userFaces/', folder_path + 'Face_Recognition/othersFaces/', folder_path + 'Face_Recognition/']
+face_classifier = cv2.CascadeClassifier(data_path[2] + 'haarcascade_frontalface_default.xml')
+
+class FaceRecognition:
 
     def __init__(self):
-        self.data_path = ['userFaces/', 'othersFaces/']
-        self.userFiles = [f for f in listdir(self.data_path[0]) if isfile(join(self.data_path[0],f))]
-        self.otherFiles = [f for f in listdir(self.data_path[1]) if isfile(join(self.data_path[1], f))]
+
+        self.userFiles = [f for f in listdir(data_path[0]) if isfile(join(data_path[0], f))]
+        self.otherFiles = [f for f in listdir(data_path[1]) if isfile(join(data_path[1], f))]
+
+        self.conf_tuple_lst = []
 
         self.Training_Data, self.Labels = [], []
 
         for i, files in enumerate(self.userFiles):
-            image_path = self.data_path[0] + self.userFiles[i]
+            image_path = data_path[0] + self.userFiles[i]
             images = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
             self.Training_Data.append(np.asarray(images, dtype=np.uint8))
             self.Labels.append(i)
@@ -28,45 +34,12 @@ class Face_Recognition:
 
         print("Model Training Complete!!!!!")
 
-        self.face_classifier = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-
-    def face_extractor(self, img):
-
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        faces = self.face_classifier.detectMultiScale(gray, 1.3, 5)
-
-        if faces is ():
-            return None
-
-        for (x, y, w, h) in faces:
-            cropped_face = img[y:y + h, x:x + w]
-
-        return cropped_face
-
-    def capture_face(self):
-        cap = cv2.VideoCapture(0)
-        count = 0
-
-        while True:
-            ret, frame = cap.read()
-            if self.face_extractor(frame) is not None:
-                count += 1
-                face = cv2.resize(self.face_extractor(frame), (200, 200))
-                face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
-
-                file_name_path = 'userFaces/user' + str(count) + '.jpg'
-                cv2.imwrite(file_name_path, face)
-
-                cv2.putText(face, str(count), (50, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
-                cv2.imshow('Face Cropper', face)
-            else:
-                print("Face not Found")
-                pass
-
-            if cv2.waitKey(1) == 13 or count == 100:
-                break
+    def update_data(self):
+        self.userFiles = [f for f in listdir(data_path[0]) if isfile(join(data_path[0], f))]
+        self.otherFiles = [f for f in listdir(data_path[1]) if isfile(join(data_path[1], f))]
 
     def face_detector(self, img):
+
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = self.face_classifier.detectMultiScale(gray,1.3,5)
 
@@ -84,7 +57,7 @@ class Face_Recognition:
         conf_dict = {}
 
         for i, j in enumerate(self.otherFiles):
-            image_path = self.data_path[1] + self.otherFiles[i]
+            image_path = data_path[1] + self.otherFiles[i]
             frame = cv2.imread(image_path, cv2.IMREAD_COLOR)
             image, face = self.face_detector(frame)
             name = j.split('.')[0]
@@ -98,13 +71,15 @@ class Face_Recognition:
                     display_string = name + " " + str(confidence) + '% Confidence it is user'
                     print(display_string)
                     conf_dict[name] = confidence
-
             except:
                 print("Face Not Found")
 
+        self.conf_tuple_lst = list(zip(conf_dict.keys(), conf_dict.values()))
+        self.conf_tuple_lst.sort(key=lambda x: x[1], reverse=True)
+
         return conf_dict
 
-    def draw_graph(self, table, obj):
+    def draw_graph(self, table):
         y1_value = list(table.values())
         x_name = list(table.keys())
         n_groups = len(x_name)
@@ -120,9 +95,58 @@ class Face_Recognition:
         plt.xlim(-1, n_groups)
         plt.ylim(min(y1_value) - 1, max(y1_value) + 1)
 
+class FaceCapture:
+
+    @staticmethod
+    def face_extractor(img):
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        faces = face_classifier.detectMultiScale(gray, 1.3, 5)
+        cropped_face = None
+
+        if faces is():
+            return None
+
+        for (x, y, w, h) in faces:
+            cropped_face = img[y:y+h, x:x+w]
+
+        return cropped_face
+
+    @staticmethod
+    def capture_face():
+
+        cap = cv2.VideoCapture(0)
+        count = 0
+
+        while True:
+            ret, frame = cap.read()
+            if FaceCapture.face_extractor(frame) is not None:
+                count += 1
+                face = cv2.resize(FaceCapture.face_extractor(frame), (200, 200))
+                face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
+
+                file_name_path = data_path[0] + '/user' + str(count) + '.jpg'
+                cv2.imwrite(file_name_path, face)
+
+                cv2.putText(face, str(count), (50, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
+                cv2.imshow('Face Cropper', face)
+            else:
+                print("Face not Found")
+                pass
+
+            if cv2.waitKey(1) == 13 or count == 100:
+                break
+
+        cap.release()
+        cv2.destroyAllWindows()
+        print('Colleting Samples Complete!!!')
+
+
+
 
 if __name__ == "__main__":
-    f = Face_Recognition()
+    FaceCapture.capture_face()
+
+    f = FaceRecognition()
     dic = f.compare_face()
     f.draw_graph(dic)
 
