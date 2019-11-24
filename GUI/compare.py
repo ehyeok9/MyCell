@@ -1,11 +1,21 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+import sys
+sys.path.insert(0, "/home/user/Software-Project-II---AD-project/Face_Recognition")
+from Facial_Recognition import FaceRecognition, FaceCapture
+import cv2
 
 class Compare(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+
+        self.directory_path = "/home/user/Software-Project-II---AD-project"
+
+        FaceCapture.capture_face()
+        self.f = FaceRecognition()
+        self.dic = self.f.compare_face()
 
         self.setWindowTitle("유사도 측정 결과")
 
@@ -13,19 +23,22 @@ class Compare(QWidget):
         self.resultimagebox = QLabel("가장 비슷한 연예인")
 
         self.userimage_label = QLabel()
-        self.userimage = QPixmap("/home/ehyeok9/github/Software-Project-II---AD-project/GUI/test_user.jpg")
+        self.userimage = QPixmap(self.directory_path + "/Face_Recognition/userFaces/user1.jpg")
         self.userimage = self.userimage.scaledToHeight(256)
         self.userimage_label.setPixmap(self.userimage)
 
 
         self.resultimage_label = QLabel()
-        self.resultimage = QPixmap("/home/ehyeok9/github/Software-Project-II---AD-project/GUI/test_result.jpg")
+        self.f.make_file(self.directory_path + "/Face_Recognition/othersFaces/" + self.f.conf_tuple_lst[0][0] + ".jpg",
+                         self.directory_path + "/Face_Recognition/othersFaces/result.jpg")
+        # self.directory_path + "/Face_Recognition/othersFaces/" + self.f.conf_tuple_lst[0][0] + ".jpg"
+        self.resultimage = QPixmap(self.directory_path + "/Face_Recognition/othersFaces/result.jpg")
         self.resultimage = self.resultimage.scaledToHeight(256)
         self.resultimage_label.setPixmap(self.resultimage)
 
 
         self.vstext = QLabel("vs",self)
-        self.resulttext = QLabel("99%", self)
+        self.resulttext = QLabel(str(self.f.conf_tuple_lst[0][1]) + "%", self)
 
         self.leftbox = QVBoxLayout()
         self.midbox = QVBoxLayout()
@@ -107,8 +120,6 @@ class Button(QToolButton):
         return size
 
 if __name__ == '__main__':
-
-    import sys
 
     app = QApplication(sys.argv)
     comparewindow = Compare()

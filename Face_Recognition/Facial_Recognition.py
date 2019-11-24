@@ -7,15 +7,15 @@ import matplotlib
 
 folder_path = "/home/user/Software-Project-II---AD-project/"
 data_path = [folder_path + 'Face_Recognition/userFaces/', folder_path + 'Face_Recognition/othersFaces/', folder_path + 'Face_Recognition/']
-face_classifier = cv2.CascadeClassifier(data_path[2] + 'haarcascade_frontalface_default.xml')
 
 class FaceRecognition:
 
     def __init__(self):
 
+        self.face_classifier = cv2.CascadeClassifier(data_path[2] + 'haarcascade_frontalface_default.xml')
+
         self.userFiles = [f for f in listdir(data_path[0]) if isfile(join(data_path[0], f))]
         self.otherFiles = [f for f in listdir(data_path[1]) if isfile(join(data_path[1], f))]
-
         self.conf_tuple_lst = []
 
         self.Training_Data, self.Labels = [], []
@@ -95,10 +95,17 @@ class FaceRecognition:
         plt.xlim(-1, n_groups)
         plt.ylim(min(y1_value) - 1, max(y1_value) + 1)
 
+    def make_file(self, filepath, revised_filepath):
+        image = cv2.imread(filepath, cv2.IMREAD_COLOR)
+        _, face = self.face_detector(image)
+        cv2.imwrite(revised_filepath, face)
+
+
 class FaceCapture:
 
     @staticmethod
     def face_extractor(img):
+        face_classifier = cv2.CascadeClassifier(data_path[2] + 'haarcascade_frontalface_default.xml')
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = face_classifier.detectMultiScale(gray, 1.3, 5)
         cropped_face = None
