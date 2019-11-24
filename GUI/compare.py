@@ -93,8 +93,8 @@ class Compare(QWidget):
         button = self.sender()
         key = button.text()
 
-        if key == '시작':
-            print("asfsaf")
+        if key == '원그래프':
+            print("")
         elif key == "사용설명":
             print(123)
 
@@ -103,6 +103,7 @@ class Compare(QWidget):
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
+
 
 class Button(QToolButton):
 

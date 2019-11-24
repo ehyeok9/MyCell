@@ -2,6 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from compare import Compare
 from introduction import Intro
 
 class Button(QToolButton):
@@ -75,10 +76,11 @@ class FaceRecognition(QWidget):
         key = button.text()
 
         if key == '시작':
-            print("asfsaf")
+            self.exec = Compare()
+            self.exec.show()
         elif key == "사용설명":
             self.intro = Intro()
-            self.intro.exec_()
+            self.intro.show()
 
     def center(self):
         qr = self.frameGeometry()
