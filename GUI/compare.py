@@ -4,7 +4,6 @@ from PyQt5.QtGui import *
 import sys
 sys.path.insert(0, "/home/user/Software-Project-II---AD-project/Face_Recognition")
 from Facial_Recognition import FaceRecognition, FaceCapture
-import cv2
 
 class Compare(QWidget):
 
