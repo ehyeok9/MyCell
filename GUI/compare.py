@@ -4,6 +4,7 @@ from PyQt5.QtGui import *
 import sys
 sys.path.insert(0, "/home/user/Software-Project-II---AD-project/Face_Recognition")
 from Facial_Recognition import FaceRecognition, FaceCapture
+from Graph import BarGraph
 
 class Compare(QWidget):
 
@@ -12,7 +13,7 @@ class Compare(QWidget):
 
         self.directory_path = "/home/user/Software-Project-II---AD-project"
 
-        FaceCapture.capture_face()
+        # FaceCapture.capture_face()
         self.f = FaceRecognition()
         self.dic = self.f.compare_face()
 
@@ -95,8 +96,9 @@ class Compare(QWidget):
 
         if key == '원그래프':
             print("")
-        elif key == "사용설명":
-            print(123)
+        elif key == "막대 그래프":
+            self.bar = BarGraph()
+            self.bar.show()
 
     def center(self):
         qr = self.frameGeometry()

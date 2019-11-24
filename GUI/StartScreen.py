@@ -31,7 +31,7 @@ class FaceRecognition(QWidget):
 
         # 배경화면
         # 이미지 가져오기
-        self.background = QImage("/home/ehyeok9/github/Software-Project-II---AD-project/GUI/background.jpg")
+        self.background = QImage("/home/user/Software-Project-II---AD-project/GUI/background.jpg")
         self.background = self.background.scaled(QSize(1500,860))
         # 이미지를 넣기 위한 파레뜨 생성
         self.palette = QPalette()
