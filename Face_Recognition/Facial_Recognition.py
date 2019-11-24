@@ -4,8 +4,9 @@ from os.path import isfile, join
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
-
-folder_path = "/home/user/Software-Project-II---AD-project/"
+lst = ["/home/user/", "/home/ehyeok9/github/"]
+directory = lst[0]
+folder_path = directory + "Software-Project-II---AD-project/"
 data_path = [folder_path + 'Face_Recognition/userFaces/', folder_path + 'Face_Recognition/othersFaces/', folder_path + 'Face_Recognition/']
 
 class FaceRecognition:

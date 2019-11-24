@@ -2,7 +2,9 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import sys
-sys.path.insert(0, "/home/user/Software-Project-II---AD-project/Face_Recognition")
+lst = ["/home/user/", "/home/ehyeok9/github/"]
+directory = lst[0]
+sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
 from Facial_Recognition import FaceRecognition, FaceCapture
 from Graph import BarGraph
 
@@ -11,9 +13,9 @@ class Compare(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.directory_path = "/home/user/Software-Project-II---AD-project"
+        self.directory_path = directory + "Software-Project-II---AD-project"
 
-        # FaceCapture.capture_face()
+        FaceCapture.capture_face()
         self.f = FaceRecognition()
         self.dic = self.f.compare_face()
 

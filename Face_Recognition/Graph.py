@@ -3,7 +3,9 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-sys.path.insert(0, "/home/user/Software-Project-II---AD-project/Face_Recognition")
+lst = ["/home/user/", "/home/ehyeok9/github/"]
+directory = lst[0]
+sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
 from Facial_Recognition import FaceRecognition
 import numpy as np
 import matplotlib
