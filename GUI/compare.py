@@ -15,9 +15,10 @@ class Compare(QWidget):
 
         self.directory_path = directory + "Software-Project-II---AD-project"
 
-        FaceCapture.capture_face()
+        # FaceCapture.capture_face()
         self.f = FaceRecognition()
-        self.dic = self.f.compare_face()
+        self.conf_dic = self.f.compare_face()
+        self.conf_rank = sorted(list(self.conf_dic.keys()), key=lambda x: self.conf_dic[x])
 
         self.setWindowTitle("유사도 측정 결과")
 
@@ -31,7 +32,7 @@ class Compare(QWidget):
 
 
         self.resultimage_label = QLabel()
-        self.f.make_file(self.directory_path + "/Face_Recognition/othersFaces/" + self.f.conf_tuple_lst[0][0] + ".jpg",
+        self.f.make_file(self.directory_path + "/Face_Recognition/othersFaces/" + self.conf_rank[-1] + ".jpg",
                          self.directory_path + "/Face_Recognition/othersFaces/result.jpg")
         # self.directory_path + "/Face_Recognition/othersFaces/" + self.f.conf_tuple_lst[0][0] + ".jpg"
         self.resultimage = QPixmap(self.directory_path + "/Face_Recognition/othersFaces/result.jpg")
@@ -40,7 +41,7 @@ class Compare(QWidget):
 
 
         self.vstext = QLabel("vs",self)
-        self.resulttext = QLabel(str(self.f.conf_tuple_lst[0][1]) + "%", self)
+        self.resulttext = QLabel(str(self.conf_dic[self.conf_rank[-1]]) + "%", self)
 
         self.leftbox = QVBoxLayout()
         self.midbox = QVBoxLayout()

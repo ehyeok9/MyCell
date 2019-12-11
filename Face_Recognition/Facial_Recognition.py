@@ -17,13 +17,13 @@ class FaceRecognition:
 
         self.userFiles = [f for f in listdir(data_path[0]) if isfile(join(data_path[0], f))]
         self.otherFiles = [f for f in listdir(data_path[1]) if isfile(join(data_path[1], f))]
-        self.conf_tuple_lst = []
 
         self.Training_Data, self.Labels = [], []
 
         for i, files in enumerate(self.userFiles):
             image_path = data_path[0] + self.userFiles[i]
-            images = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+            images = cv2.imread(image_path, cv2.IMREAD_COLOR)
+            images = cv2.cvtColor(images, cv2.COLOR_BGR2GRAY)
             self.Training_Data.append(np.asarray(images, dtype=np.uint8))
             self.Labels.append(i)
 
@@ -74,9 +74,6 @@ class FaceRecognition:
                     conf_dict[name] = confidence
             except:
                 print("Face Not Found")
-
-        self.conf_tuple_lst = list(zip(conf_dict.keys(), conf_dict.values()))
-        self.conf_tuple_lst.sort(key=lambda x: x[1], reverse=True)
 
         return conf_dict
 
@@ -130,7 +127,6 @@ class FaceCapture:
             if FaceCapture.face_extractor(frame) is not None:
                 count += 1
                 face = cv2.resize(FaceCapture.face_extractor(frame), (200, 200))
-                face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
 
                 file_name_path = data_path[0] + '/user' + str(count) + '.jpg'
                 cv2.imwrite(file_name_path, face)
@@ -147,6 +143,7 @@ class FaceCapture:
         cap.release()
         cv2.destroyAllWindows()
         print('Colleting Samples Complete!!!')
+
 
 
 

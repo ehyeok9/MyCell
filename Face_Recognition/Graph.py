@@ -17,7 +17,7 @@ class BarGraph(QWidget):
 
     def setupUI(self):
         self.setGeometry(600, 200, 1200, 600)
-        self.setWindowTitle("PyChart Viewer v0.1")
+        self.setWindowTitle("viewer")
         self.setWindowIcon(QIcon('icon.png'))
 
         self.lineEdit = QLineEdit()
@@ -61,8 +61,8 @@ class BarGraph(QWidget):
         ax.set_ylabel('Confidence (%)')
         ax.set_title('Chart')
 
-        # plt.xlim(-1, n_groups)
-        # plt.ylim(min(y1_value) - 1, max(y1_value) + 1)
+        ax.set_xlim(-1, n_groups)
+        ax.set_ylim(min(y1_value) - 1, max(y1_value) + 1)
 
         # code = self.lineEdit.text()
 
