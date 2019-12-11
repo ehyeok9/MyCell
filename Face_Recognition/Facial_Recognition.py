@@ -4,6 +4,7 @@ from os.path import isfile, join
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
+import os
 lst = ["/home/user/", "/home/ehyeok9/github/"]
 directory = lst[0]
 folder_path = directory + "Software-Project-II---AD-project/"
@@ -11,17 +12,17 @@ data_path = [folder_path + 'Face_Recognition/userFaces/', folder_path + 'Face_Re
 
 class FaceRecognition:
 
-    def __init__(self):
-
+    def __init__(self, username="Kevin"):
+        self.username = username
         self.face_classifier = cv2.CascadeClassifier(data_path[2] + 'haarcascade_frontalface_default.xml')
-
-        self.userFiles = [f for f in listdir(data_path[0]) if isfile(join(data_path[0], f))]
+        self.userFolderPath = data_path[0] + username + '/'
+        self.userFiles = [f for f in listdir(self.userFolderPath) if isfile(join(self.userFolderPath, f))]
         self.otherFiles = [f for f in listdir(data_path[1]) if isfile(join(data_path[1], f))]
 
         self.Training_Data, self.Labels = [], []
 
         for i, files in enumerate(self.userFiles):
-            image_path = data_path[0] + self.userFiles[i]
+            image_path = self.userFolderPath + self.userFiles[i]
             images = cv2.imread(image_path, cv2.IMREAD_COLOR)
             images = cv2.cvtColor(images, cv2.COLOR_BGR2GRAY)
             self.Training_Data.append(np.asarray(images, dtype=np.uint8))
@@ -117,7 +118,7 @@ class FaceCapture:
         return cropped_face
 
     @staticmethod
-    def capture_face():
+    def capture_face(username = "Kevin"):
 
         cap = cv2.VideoCapture(0)
         count = 0
@@ -125,10 +126,11 @@ class FaceCapture:
         while True:
             ret, frame = cap.read()
             if FaceCapture.face_extractor(frame) is not None:
+                os.system("mkdir {}".format(data_path[0] + username + '/'))
                 count += 1
                 face = cv2.resize(FaceCapture.face_extractor(frame), (200, 200))
 
-                file_name_path = data_path[0] + '/user' + str(count) + '.jpg'
+                file_name_path = data_path[0] + '/' + username + '/user' + str(count) + '.jpg'
                 cv2.imwrite(file_name_path, face)
 
                 cv2.putText(face, str(count), (50, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)

@@ -5,15 +5,13 @@ import sys
 lst = ["/home/user/", "/home/ehyeok9/github/"]
 directory = lst[0]
 sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
-from Facial_Recognition import FaceRecognition, FaceCapture
+from Facial_Recognition import FaceRecognition, FaceCapture, data_path
 from Graph import BarGraph
 
 class Compare(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-
-        self.directory_path = directory + "Software-Project-II---AD-project"
 
         # FaceCapture.capture_face()
         self.f = FaceRecognition()
@@ -26,16 +24,15 @@ class Compare(QWidget):
         self.resultimagebox = QLabel("가장 비슷한 연예인")
 
         self.userimage_label = QLabel()
-        self.userimage = QPixmap(self.directory_path + "/Face_Recognition/userFaces/user1.jpg")
+        self.userimage = QPixmap(data_path[0] + self.f.username + "/user1.jpg")
         self.userimage = self.userimage.scaledToHeight(256)
         self.userimage_label.setPixmap(self.userimage)
 
 
         self.resultimage_label = QLabel()
-        self.f.make_file(self.directory_path + "/Face_Recognition/othersFaces/" + self.conf_rank[-1] + ".jpg",
-                         self.directory_path + "/Face_Recognition/othersFaces/result.jpg")
-        # self.directory_path + "/Face_Recognition/othersFaces/" + self.f.conf_tuple_lst[0][0] + ".jpg"
-        self.resultimage = QPixmap(self.directory_path + "/Face_Recognition/othersFaces/result.jpg")
+        self.f.make_file(data_path[1] + self.conf_rank[-1] + ".jpg",
+                         data_path[1] + "result.jpg")
+        self.resultimage = QPixmap(data_path[1] + "result.jpg")
         self.resultimage = self.resultimage.scaledToHeight(256)
         self.resultimage_label.setPixmap(self.resultimage)
 
