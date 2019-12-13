@@ -2,9 +2,14 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-
+import sys
 lst = ["/home/user/", "/home/ehyeok9/github/"]
 directory = lst[1]
+sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
+from Facial_Recognition import FaceRecognition, FaceCapture, data_path, directory
+
+lst = ["/home/user/", "/home/ehyeok9/github/"]
+
 
 class Button(QToolButton):
 
@@ -38,12 +43,19 @@ class Register(QWidget):
         self.userimage_label.setPixmap(self.userimage)
         # 이미지를 넣기 위한 파레뜨 생성
 
+
+        self.value = []
+
         # 시작화면 레이아웃
         self.title = QLabel("Face Recognition")
         self.title.setStyleSheet("color:#3232FF")
         self.title.setFont(QFont("Times", 50, weight= QFont.Bold))
 
         self.progress = QProgressBar()
+
+        self.combo = QComboBox(self)
+        self.combo.addItem("남자")
+        self.combo.addItem("여자")
 
         self.search = QLineEdit()
 
@@ -54,6 +66,8 @@ class Register(QWidget):
 
         self.rightlayout.addStretch(1)
         self.rightlayout.addWidget(self.search)
+        self.rightlayout.addStretch(1)
+        self.rightlayout.addWidget(self.combo)
         self.rightlayout.addStretch(1)
         self.rightlayout.addWidget(self.searchbutton)
         self.rightlayout.addStretch(4)
@@ -70,15 +84,21 @@ class Register(QWidget):
     def buttonClicked(self):
         button = self.sender()
         key = button.text()
+        self.combotext = self.combo.currentText()
+        self.searchtext = self.search.text()
 
-        if key == '검색':
-            print("safsa")
+        self.dicforvalue = {self.searchtext : self.combotext}
+        self.value.append(self.dicforvalue)
+        FaceCapture.capture_face(self.searchtext)
 
     def center(self):
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
+
+    def callback(self):
+        return self.value
 
 if __name__ == '__main__':
 
