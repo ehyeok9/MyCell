@@ -6,7 +6,7 @@ from compare import Compare
 from introduction import Intro
 
 lst = ["/home/user/", "/home/ehyeok9/github/"]
-directory = lst[0]
+directory = lst[1]
 
 class Button(QToolButton):
 
@@ -18,7 +18,7 @@ class Button(QToolButton):
 
     def sizeHint(self):
         size = super(Button, self).sizeHint()
-        size.setHeight(size.height() + 20)
+        size.setHeight(size.height() + 10)
         size.setWidth(max(size.width(), size.height()))
         return size
 
@@ -46,17 +46,26 @@ class FaceRecognition(QWidget):
         self.title.setStyleSheet("color:#3232FF")
         self.title.setFont(QFont("Times", 50, weight= QFont.Bold))
 
-        self.startbutton = Button("시작", self.buttonClicked)
+        self.enrollmentbutton = Button("등록갱", self.buttonClicked)
+        self.startbutton = Button("결과보기", self.buttonClicked)
         self.introductionbutton = Button("사용설명", self.buttonClicked)
+        self.combobox = QComboBox(self)
 
-        self.hlayout = QHBoxLayout()
-        self.vlayout = QVBoxLayout()
-        self.buttonLayout = QVBoxLayout()
+        self.hlayout = QHBoxLayout(self)
+        self.vlayout = QVBoxLayout(self)
+        self.buttonLayout = QVBoxLayout(self)
+
+        self.buttonLayout.addWidget(self.enrollmentbutton)
 
         self.vlayout.addWidget(self.title)
         self.vlayout.addStretch(2)
 
-        self.buttonLayout.addWidget(self.startbutton)
+        self.resultlayout = QHBoxLayout(self)
+        self.resultlayout.addWidget(self.combobox)
+        self.resultlayout.addWidget(self.startbutton)
+
+        self.buttonLayout.addLayout(self.resultlayout)
+
         self.buttonLayout.addStretch(3)
         self.buttonLayout.addWidget(self.introductionbutton)
 
@@ -68,7 +77,6 @@ class FaceRecognition(QWidget):
 
         self.setPalette(self.palette)
 
-        self.setLayout(self.hlayout)
         # 윈도우 크기 고정
         self.setFixedSize(1500, 860)
 
@@ -78,12 +86,14 @@ class FaceRecognition(QWidget):
         button = self.sender()
         key = button.text()
 
-        if key == '시작':
+        if key == '결과보기':
             self.exec = Compare()
             self.exec.show()
         elif key == "사용설명":
             self.intro = Intro()
             self.intro.show()
+        elif key == "등록갱":
+            print("afsaf")
 
     def center(self):
         qr = self.frameGeometry()
