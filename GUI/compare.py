@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import sys
 lst = ["/home/user/", "/home/ehyeok9/github/"]
-directory = lst[0]
+directory = lst[1]
 sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
 from Facial_Recognition import FaceRecognition, FaceCapture
 from Graph import BarGraph
@@ -15,14 +15,17 @@ class Compare(QWidget):
 
         self.directory_path = directory + "Software-Project-II---AD-project"
 
-        FaceCapture.capture_face()
+        #FaceCapture.capture_face()
         self.f = FaceRecognition()
         self.dic = self.f.compare_face()
 
         self.setWindowTitle("유사도 측정 결과")
 
         self.userimagebox = QLabel("본인 사진")
+        self.userimagebox.setFont(QFont("Times", 22, weight=QFont.Bold))
+
         self.resultimagebox = QLabel("가장 비슷한 연예인")
+        self.resultimagebox.setFont(QFont("Times", 22, weight=QFont.Bold))
 
         self.userimage_label = QLabel()
         self.userimage = QPixmap(self.directory_path + "/Face_Recognition/userFaces/user1.jpg")
@@ -38,9 +41,11 @@ class Compare(QWidget):
         self.resultimage = self.resultimage.scaledToHeight(256)
         self.resultimage_label.setPixmap(self.resultimage)
 
-
         self.vstext = QLabel("vs",self)
+        self.vstext.setFont(QFont("Times",35, weight=QFont.Bold))
+
         self.resulttext = QLabel(str(self.f.conf_tuple_lst[0][1]) + "%", self)
+        self.resulttext.setFont(QFont("Times", 35, weight=QFont.Bold))
 
         self.leftbox = QVBoxLayout()
         self.midbox = QVBoxLayout()
@@ -66,16 +71,10 @@ class Compare(QWidget):
         self.midbox.addStretch(1)
 
         self.optionbox = QHBoxLayout()
-        self.staticbutton1 = Button("원그래프", self.buttonClicked)
-        self.staticbutton2 = Button("막대 그래프", self.buttonClicked)
-        self.staticbutton3 = Button("기타", self.buttonClicked)
+        self.staticbutton1 = Button("그래프", self.buttonClicked)
 
         self.optionbox.addStretch(1)
         self.optionbox.addWidget(self.staticbutton1)
-        self.optionbox.addStretch(1)
-        self.optionbox.addWidget(self.staticbutton2)
-        self.optionbox.addStretch(1)
-        self.optionbox.addWidget(self.staticbutton3)
         self.optionbox.addStretch(1)
 
         self.mainwindow = QHBoxLayout()
@@ -96,9 +95,7 @@ class Compare(QWidget):
         button = self.sender()
         key = button.text()
 
-        if key == '원그래프':
-            print("")
-        elif key == "막대 그래프":
+        if key == "그래프":
             self.bar = BarGraph()
             self.bar.show()
 
