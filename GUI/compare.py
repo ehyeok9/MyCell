@@ -5,7 +5,7 @@ import sys
 lst = ["/home/user/", "/home/ehyeok9/github/"]
 directory = lst[0]
 sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
-from Facial_Recognition import FaceRecognition, FaceCapture, data_path
+from Facial_Recognition import FaceRecognition, FaceCapture, data_path, directory
 from Graph import BarGraph
 
 class Compare(QWidget):
@@ -17,7 +17,6 @@ class Compare(QWidget):
         self.f = FaceRecognition()
         self.conf_dic = self.f.compare_face()
         self.conf_rank = sorted(list(self.conf_dic.keys()), key=lambda x: self.conf_dic[x])
-
         self.setWindowTitle("유사도 측정 결과")
 
         self.userimagebox = QLabel("본인 사진")
@@ -85,7 +84,6 @@ class Compare(QWidget):
         self.realmainwindow.addLayout(self.mainwindow)
         self.realmainwindow.addLayout(self.optionbox)
 
-
         self.setLayout(self.realmainwindow)
 
         self.center()
@@ -97,7 +95,7 @@ class Compare(QWidget):
         if key == '원그래프':
             print("")
         elif key == "막대 그래프":
-            self.bar = BarGraph()
+            self.bar = BarGraph(self.conf_dic)
             self.bar.show()
 
     def center(self):
@@ -127,4 +125,3 @@ if __name__ == '__main__':
     comparewindow = Compare()
     comparewindow.show()
     sys.exit(app.exec_())
-

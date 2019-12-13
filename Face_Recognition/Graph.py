@@ -3,16 +3,20 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-lst = ["/home/user/", "/home/ehyeok9/github/"]
-directory = lst[0]
-sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
 from Facial_Recognition import FaceRecognition
 import numpy as np
 import matplotlib
 
-class BarGraph(QWidget):
-    def __init__(self):
+class Button(QToolButton):
+    def __init__(self, text, callback):
         super().__init__()
+        self.setText(text)
+        self.clicked.connect(callback)
+
+class BarGraph(QWidget):
+    def __init__(self, dic):
+        super().__init__()
+        self.conf_dict = dic
         self.setupUI()
 
     def setupUI(self):
@@ -21,8 +25,10 @@ class BarGraph(QWidget):
         self.setWindowIcon(QIcon('icon.png'))
 
         self.lineEdit = QLineEdit()
-        self.pushButton = QPushButton("차트그리기")
-        self.pushButton.clicked.connect(self.pushButtonClicked)
+        self.drawButton = Button("Draw", self.pushButtonClicked)
+        self.moreButton = Button("More", self.pushButtonClicked)
+        self.textEdit = QTextEdit()
+        self.textEdit.setReadOnly(True)
 
         self.fig = plt.Figure()
         self.canvas = FigureCanvas(self.fig)
@@ -32,9 +38,9 @@ class BarGraph(QWidget):
 
         # Right Layout
         rightLayout = QVBoxLayout()
-        rightLayout.addWidget(self.lineEdit)
-        rightLayout.addWidget(self.pushButton)
-        rightLayout.addStretch(1)
+        rightLayout.addWidget(self.drawButton)
+        rightLayout.addWidget(self.moreButton)
+        rightLayout.addWidget(self.textEdit)
 
         layout = QHBoxLayout()
         layout.addLayout(leftLayout)
@@ -45,25 +51,42 @@ class BarGraph(QWidget):
         self.setLayout(layout)
 
     def pushButtonClicked(self):
-        f = FaceRecognition()
-        dic = f.compare_face()
+        button = self.sender()
+        key = button.text()
+        dic = self.conf_dict
+        print(self.conf_dict)
 
-        y1_value = list(dic.values())
-        x_name = list(dic.keys())
-        n_groups = len(x_name)
-        index = np.arange(n_groups)
+        if key == "Draw":
+            # f = FaceRecognition()
+            # dic = f.compare_face()
 
-        matplotlib.rc('font', family='NanumGothic')
-        ax = self.fig.add_subplot(111)
+            if len(dic) > 10:
+                conf_rank = sorted(list(self.conf_dict.keys()), key=lambda x: self.conf_dict[x], reverse=True)
+                dic = {x: dic[x] for x in conf_rank[:10]}
 
-        ax.bar(index, y1_value, tick_label=x_name, align='center')
-        ax.set_xlabel('Name')
-        ax.set_ylabel('Confidence (%)')
-        ax.set_title('Chart')
+            y1_value = list(dic.values())
+            x_name = list(dic.keys())
+            n_groups = len(x_name)
+            index = np.arange(n_groups)
 
-        ax.set_xlim(-1, n_groups)
-        ax.set_ylim(min(y1_value) - 1, max(y1_value) + 1)
+            matplotlib.rc('font', family='NanumGothic')
+            ax = self.fig.add_subplot(111)
+
+            ax.bar(index, y1_value, tick_label=x_name, align='center')
+            ax.set_xlabel('Name')
+            ax.set_ylabel('Confidence (%)')
+            ax.set_title('Chart')
+
+            ax.set_xlim(-1, n_groups)
+            ax.set_ylim(min(y1_value) - 1, max(y1_value) + 1)
+
+            self.canvas.draw()
+
+        elif key == "More":
+            displayString = ""
+            for i in dic:
+                displayString += "{} = {} ".format(i, dic[i])
+
+            self.textEdit.setText(displayString)
 
         # code = self.lineEdit.text()
-
-        self.canvas.draw()

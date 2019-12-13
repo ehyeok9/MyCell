@@ -71,7 +71,7 @@ class FaceRecognition:
                 if result[1] < 500:
                     confidence = int(100 * (1 - (result[1]) / 300))
                     display_string = name + " " + str(confidence) + '% Confidence it is user'
-                    print(display_string)
+                    # print(display_string)
                     conf_dict[name] = confidence
             except:
                 print("Face Not Found")
