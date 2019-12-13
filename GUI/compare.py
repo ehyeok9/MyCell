@@ -10,11 +10,11 @@ from Graph import BarGraph
 
 class Compare(QWidget):
 
-    def __init__(self, parent=None):
+    def __init__(self, username, usergender, parent=None):
         super().__init__(parent)
 
         # FaceCapture.capture_face()
-        self.f = FaceRecognition()
+        self.f = FaceRecognition(username, usergender)
         self.conf_dic = self.f.compare_face()
         self.conf_rank = sorted(list(self.conf_dic.keys()), key=lambda x: self.conf_dic[x])
         self.setWindowTitle("유사도 측정 결과")

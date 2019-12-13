@@ -1,12 +1,19 @@
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from compare import Compare
 from introduction import Intro
+from regist import Register, user_lst
 
-lst = ["/home/user/", "/home/ehyeok9/github/"]
+lst = ["/home/user/Downloads/", "/home/ehyeok9/github/"]
 directory = lst[0]
+class ComboBox(QComboBox):
+    popupAboutToBeShown = pyqtSignal()
+
+    def showPopup(self):
+        self.popupAboutToBeShown.emit()
+        super(ComboBox, self).showPopup()
 
 class Button(QToolButton):
 
@@ -49,7 +56,11 @@ class FaceRecognition(QWidget):
         self.enrollmentbutton = Button("등록갱", self.buttonClicked)
         self.startbutton = Button("결과보기", self.buttonClicked)
         self.introductionbutton = Button("사용설명", self.buttonClicked)
-        self.combobox = QComboBox(self)
+        # self.combobox = QComboBox(self)
+        # self.combobox.clicked.connect(self.updateComb)
+
+        self.combobox = ComboBox(self)
+        self.combobox.popupAboutToBeShown.connect(self.updateComb)
 
         self.hlayout = QHBoxLayout(self)
         self.vlayout = QVBoxLayout(self)
@@ -87,13 +98,23 @@ class FaceRecognition(QWidget):
         key = button.text()
 
         if key == '결과보기':
-            self.exec = Compare()
+            username = self.combobox.currentText()
+            for user in user_lst:
+                if user["name"] == username:
+                    usergender = user["gender"]
+            self.exec = Compare(username, usergender)
             self.exec.show()
         elif key == "사용설명":
             self.intro = Intro()
             self.intro.show()
         elif key == "등록갱":
-            print("afsaf")
+            self.register = Register()
+            self.register.show()
+
+    def updateComb(self):
+        self.combobox.clear()
+        for user in user_lst:
+            self.combobox.addItem(user["name"])
 
     def center(self):
         qr = self.frameGeometry()

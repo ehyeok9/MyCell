@@ -5,14 +5,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
 import os
-lst = ["/home/user/", "/home/ehyeok9/github/"]
+lst = ["/home/user/Downloads/", "/home/ehyeok9/github/"]
 directory = lst[0]
 folder_path = directory + "Software-Project-II---AD-project/"
 data_path = [folder_path + 'Face_Recognition/userFaces/', folder_path + 'Face_Recognition/othersFaces/', folder_path + 'Face_Recognition/']
 
 class FaceRecognition:
 
-    def __init__(self, username="Kevin", usergender="woman"):
+    def __init__(self, username, usergender):
         self.username = username
         self.usergender = usergender
         self.isMan = True if usergender == "man" else False
