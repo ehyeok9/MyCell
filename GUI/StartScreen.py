@@ -7,7 +7,7 @@ from introduction import Intro
 from regist import Register, user_lst
 
 lst = ["/home/user/Downloads/", "/home/ehyeok9/github/"]
-directory = lst[0]
+directory = lst[1]
 class ComboBox(QComboBox):
     popupAboutToBeShown = pyqtSignal()
 
@@ -99,6 +99,7 @@ class FaceRecognition(QWidget):
 
         if key == '결과보기':
             username = self.combobox.currentText()
+            usergender = None
             for user in user_lst:
                 if user["name"] == username:
                     usergender = user["gender"]

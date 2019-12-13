@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 import os
 lst = ["/home/user/Downloads/", "/home/ehyeok9/github/"]
-directory = lst[0]
+directory = lst[1]
 folder_path = directory + "Software-Project-II---AD-project/"
 data_path = [folder_path + 'Face_Recognition/userFaces/', folder_path + 'Face_Recognition/othersFaces/', folder_path + 'Face_Recognition/']
 

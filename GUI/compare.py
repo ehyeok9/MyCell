@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import sys
 lst = ["/home/user/", "/home/ehyeok9/github/"]
-directory = lst[0]
+directory = lst[1]
 sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
 from Facial_Recognition import FaceRecognition, FaceCapture, data_path, directory
 from Graph import BarGraph
@@ -122,6 +122,6 @@ class Button(QToolButton):
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
-    comparewindow = Compare()
+    comparewindow = Compare("이혁", "man")
     comparewindow.show()
     sys.exit(app.exec_())

@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import sys
 lst = ["/home/user/Downloads/", "/home/ehyeok9/github/"]
-directory = lst[0]
+directory = lst[1]
 sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
 from Facial_Recognition import FaceRecognition, FaceCapture, data_path, directory
 
@@ -36,8 +36,10 @@ class Register(QWidget):
 
         # 배경화면
         # 이미지 가져오기
+        self.search = QLineEdit()
+
         self.userimage_label = QLabel()
-        self.userimage = QPixmap(directory + "Software-Project-II---AD-project/Face_Recognition/userFaces/user1.jpg")
+        self.userimage = QPixmap(directory + "Software-Project-II---AD-project/Face_Recognition/gray.jpg")
         self.userimage = self.userimage.scaledToHeight(256)
         self.userimage_label.setPixmap(self.userimage)
         # 이미지를 넣기 위한 파레뜨 생성
@@ -52,8 +54,6 @@ class Register(QWidget):
         self.combo = QComboBox(self)
         self.combo.addItem("man")
         self.combo.addItem("woman")
-
-        self.search = QLineEdit()
 
         self.searchbutton = Button("검색", self.buttonClicked)
 
@@ -86,6 +86,11 @@ class Register(QWidget):
         dic = {"name": searchtext, "gender": combotext}
         user_lst.append(dic)
         FaceCapture.capture_face(searchtext)
+
+        self.userimage = QPixmap(directory + "Software-Project-II---AD-project/Face_Recognition/userFaces/" + searchtext + "/user1.jpg")
+        self.userimage = self.userimage.scaledToHeight(256)
+        self.userimage_label.setPixmap(self.userimage)
+        self.setLayout(self.mainlayout)
 
     def center(self):
         qr = self.frameGeometry()
