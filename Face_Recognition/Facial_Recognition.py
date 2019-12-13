@@ -12,12 +12,15 @@ data_path = [folder_path + 'Face_Recognition/userFaces/', folder_path + 'Face_Re
 
 class FaceRecognition:
 
-    def __init__(self, username="Kevin"):
+    def __init__(self, username="Kevin", usergender="woman"):
         self.username = username
+        self.usergender = usergender
+        self.isMan = True if usergender == "man" else False
         self.face_classifier = cv2.CascadeClassifier(data_path[2] + 'haarcascade_frontalface_default.xml')
         self.userFolderPath = data_path[0] + username + '/'
         self.userFiles = [f for f in listdir(self.userFolderPath) if isfile(join(self.userFolderPath, f))]
-        self.otherFiles = [f for f in listdir(data_path[1]) if isfile(join(data_path[1], f))]
+        self.gender_path = data_path[1] + ("menFaces/" if self.isMan else "womenFaces/")
+        self.otherFiles = [f for f in listdir(self.gender_path) if isfile(join(self.gender_path, f))]
 
         self.Training_Data, self.Labels = [], []
 
@@ -59,7 +62,7 @@ class FaceRecognition:
         conf_dict = {}
 
         for i, j in enumerate(self.otherFiles):
-            image_path = data_path[1] + self.otherFiles[i]
+            image_path = self.gender_path + self.otherFiles[i]
             frame = cv2.imread(image_path, cv2.IMREAD_COLOR)
             image, face = self.face_detector(frame)
             name = j.split('.')[0]

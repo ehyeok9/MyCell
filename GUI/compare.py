@@ -29,9 +29,9 @@ class Compare(QWidget):
 
 
         self.resultimage_label = QLabel()
-        self.f.make_file(data_path[1] + self.conf_rank[-1] + ".jpg",
-                         data_path[1] + "result.jpg")
-        self.resultimage = QPixmap(data_path[1] + "result.jpg")
+        self.f.make_file(self.f.gender_path + self.conf_rank[-1] + ".jpg",
+                         self.f.gender_path + "result.jpg")
+        self.resultimage = QPixmap(self.f.gender_path + "result.jpg")
         self.resultimage = self.resultimage.scaledToHeight(256)
         self.resultimage_label.setPixmap(self.resultimage)
 

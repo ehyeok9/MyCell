@@ -6,7 +6,7 @@ from compare import Compare
 from introduction import Intro
 
 lst = ["/home/user/", "/home/ehyeok9/github/"]
-directory = lst[1]
+directory = lst[0]
 
 class Button(QToolButton):
 

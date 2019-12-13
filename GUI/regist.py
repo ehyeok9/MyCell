@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 
 lst = ["/home/user/", "/home/ehyeok9/github/"]
-directory = lst[1]
+directory = lst[0]
 
 class Button(QToolButton):
 
