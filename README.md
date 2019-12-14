@@ -23,17 +23,6 @@ Software Project II
 
 이미지 가공 알고리즘(차용), 학습 알고리즘(차용), DB(AI 데이터, 연예인 사진 저장, 분석 결과 저장), matplotlib를 이용한 그래프 구현 알고리즘, pyqt GUI 코드 파일 통합, 유저 친화적인 인터페이스 개발
 
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
-.tg .tg-9wq8{border-color:inherit;text-align:center;vertical-align:middle}
-.tg .tg-baqh{text-align:center;vertical-align:top}
-.tg .tg-j844{color:#333333;border-color:inherit;text-align:center;vertical-align:middle}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-.tg .tg-nrix{text-align:center;vertical-align:middle}
-.tg .tg-0lax{text-align:left;vertical-align:top}
-</style>
 <table class="tg">
   <tr>
     <th class="tg-baqh">모듈</th>
@@ -92,6 +81,162 @@ Software Project II
   </tr>
 </table>
 
+<table class="tg">
+  <tr>
+    <th class="tg-baqh">클래스</th>
+    <th class="tg-baqh">메소드</th>
+    <th class="tg-baqh">입력인자</th>
+    <th class="tg-baqh">출력인자</th>
+    <th class="tg-baqh">기능</th>
+  </tr>
+  <tr>
+    <td class="tg-j844" rowspan="5">FaceRecognition</td>
+    <td class="tg-9wq8">__init__</td>
+    <td class="tg-c3ow">self, username, usergender</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">유저의 정보를 인자로 받아와 성별에 따라 다른 비교 데이터가 저장되어있는 디렉토리의 위치를 받아온다.  또한 이름과 일치하는 디렉토리에서 사진을 받아와 학습을 진행한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">face_detector</td>
+    <td class="tg-baqh">self, img</td>
+    <td class="tg-baqh">img, roi</td>
+    <td class="tg-0lax">이미지를 받아와 얼굴 부분을 잘라낸 다음 200 x 200 크기로 맞춰 roi와 원본이미지를 출력한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">compare_face</td>
+    <td class="tg-baqh">self </td>
+    <td class="tg-baqh">conf_dict</td>
+    <td class="tg-0lax">유저의 얼굴과 유저의 성별에 맞는 연예인의 얼굴을 비교해 key는 연예인의 이름 value는 유사도로 해서 딕셔너리로 묶은 다음 출력한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">draw_graph</td>
+    <td class="tg-baqh">self, table</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">인자로 딕셔너리를 받아와 matplotlib를 이용해 그래프를 그린다. 주어진 파일 안에서 테스트하기 위해서 만들어진 함수이다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">make_file</td>
+    <td class="tg-baqh">self, filepath, revised_filepath</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">유저와 가장 유사도가 높게 나온 사진을 보여줄 때 전신 사진이 아니라 얼굴 사진만을 보여주기 위해서 이미지를 가공해서 새로 이미지를 만드는 기능을 구현했다.</td>
+  </tr>
+  <tr>
+    <td class="tg-9wq8" rowspan="2">FaceCapture</td>
+    <td class="tg-9wq8">face_extractor</td>
+    <td class="tg-c3ow">img</td>
+    <td class="tg-baqh">cropped_face</td>
+    <td class="tg-0lax">기능은 크게 face_detector와 다르지 않으나 capture_face를 스태틱 메소드로 사용하고 싶어서 추가한 기능이다. 출력이 face_detector와 다르게 cropped_face 하나 밖에 없다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">capture_face</td>
+    <td class="tg-baqh">username</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">기본 설정된 카메라를 통해 사진을 찍는다. 사진을 찍고 얼굴이라고 인지된 사진을 100장 뽑아 낼 때까지 루프를 돈다. 유저 이름을 인자로 받아와 유저이름을 갖는 디렉토리를 생성하고 그 안에 얼굴사진 100장을 저장한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-9wq8">Button</td>
+    <td class="tg-9wq8">__init__</td>
+    <td class="tg-c3ow">self, text, callback</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">텍스트의 이름을 갖는 버튼을 만들고 callback 함수 인자에 주어진 함수로 이벤트 메소드를 연결한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix" rowspan="3">BarGrapth</td>
+    <td class="tg-baqh">__init__</td>
+    <td class="tg-baqh">self, dic</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">유사도가 기록된 딕셔너리를 받아 self.conf_dict에 저장하고 setupUI를 호출한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">setupUI</td>
+    <td class="tg-baqh">self</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">Draw 버튼과 More 버튼을 생성하고 통계 창을 띄울 FigureCanvas와 데이터 리스트를 띄울 textEdit을 생성한다. </td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">pushButtonClicked</td>
+    <td class="tg-baqh">self</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">버튼이 눌리면 버튼의 이름에 따라 기능한다. Draw가 입력되면 통게를 그리고, More가 입력되면 가지고 있는 데이터를 모두 띄운다.</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix" rowspan="3">Compare</td>
+    <td class="tg-baqh">__init__</td>
+    <td class="tg-baqh">self, username, usergender, parent</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">유저의 이름과 성별을 받아와서 FaceRecognition 클래스에 전달한다. 정보를 표시할 레이블과 이미지를 가져오기 위한 QPixmap과 스테이터스 바와 막대그래프 버튼이 선언되어 있다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">buttonClicked</td>
+    <td class="tg-baqh">self</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">막대 그래프 버튼이 눌리면 그래프 창을 띄운다. 그래프 창을 띄울 때 인자로 self.conf_dict를 보내준다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">center</td>
+    <td class="tg-baqh">self</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">버튼의 위치를 가운데로 조정해준다.</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix">Intro</td>
+    <td class="tg-baqh">__init__</td>
+    <td class="tg-baqh">self, parent</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">사용설명을 위한 텍스트가 저장되어 있고 textEdit이 선언되어 있다.</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix" rowspan="3">Register</td>
+    <td class="tg-baqh">__init__</td>
+    <td class="tg-baqh">self, parent</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">이미지를 넣기 위한 QPixmap과 정보를 담는 레이블, 성별을 결정하는 QComboBox와 이름을 입력하는 QLineEdit, 그리고 작동 버튼이 선언되어 있다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">buttonClicked</td>
+    <td class="tg-baqh">self</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">버튼이 눌리면 유저의 성별과 이름을 받아와 딕셔너리 형태로 가공해 user_lst에 추가해주고 같은 디렉토리 내에 있는 user_info.txt 파일에 pickle을 이용해 user_lst를 기록한다. user_lst는 클래스 외부에 선언되어 있으며 프로그램이 실행될 때 바로 파일을 읽어와 저장하게 되어있다. 만약 파일이 존재하지 않으면 빈 리스트로 주어진다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">center</td>
+    <td class="tg-baqh">self</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">버튼의 위치를 가운데로 조정해준다.</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix">ComboBox</td>
+    <td class="tg-baqh">showPopup</td>
+    <td class="tg-baqh">self</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">updateComb를 이용하기 위해서 사전에 해둬야 하는 설정들이 있다.</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix" rowspan="4">MainWindow</td>
+    <td class="tg-baqh">__init__</td>
+    <td class="tg-baqh">self, parent</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">배경화면으로 지정할 이미지를 가져오고 버튼, 텍스트 입력창, 항목 선택 바를 생성한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">updateComb</td>
+    <td class="tg-baqh">self</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">ComboBox가 선택이 되면 자동으로 안에 있던 item들을 초기화 하고 새로 user_lst를 스캔하여 item을 등록한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">center</td>
+    <td class="tg-baqh">self</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">버튼의 위치를 가운데로 조정해준다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">buttonClicked</td>
+    <td class="tg-baqh">self</td>
+    <td class="tg-baqh">None</td>
+    <td class="tg-0lax">버튼이 눌리면 버튼의 텍스트에 따라 각각 기능하는데 유저 삭제 기능은 이 함수 안에 구현되어 있다. regist.py에서 가져온 user_lst를 스캔하여 텍스트 입력창에 입력된 유저의 이름과 일치하는 유저를 삭제한다.</td>
+  </tr>
+</table>
 
 
 
