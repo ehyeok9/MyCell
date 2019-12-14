@@ -81,6 +81,9 @@ Software Project II
   </tr>
 </table>
 
+클래스 인터페이스 설계
+--------------------------------
+
 <table class="tg">
   <tr>
     <th class="tg-baqh">클래스</th>
@@ -330,8 +333,11 @@ Software Project II
     <td class="tg-0lax">기본값으로 설정되어 있는 카메라를 통해 이미지를 입력받는다. username을 인자로 받아서 user이름으로 된 디렉토리를 만들고 그 안에 유저의 얼굴만을 잘라낸 사진들을 저장한다.</td>
   </tr>
 </table>
+
 코딩
-----
+----------
+
+https://github.com/ehyeok9/Software-Project-II---AD-project
 
 단위 테스트
 -----------
