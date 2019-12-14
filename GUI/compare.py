@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import sys
 lst = ["/home/user/", "/home/ehyeok9/github/"]
-directory = lst[0]
+directory = lst[1]
 sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
 from Facial_Recognition import FaceRecognition, FaceCapture, data_path, directory
 from Graph import BarGraph
@@ -45,7 +45,7 @@ class Compare(QWidget):
         self.vstext.setFont(QFont("Times", 15, weight=QFont.Bold))
 
         self.resultpercentage = QProgressBar(self)
-        self.resultpercentage.setGeometry(0,0,300,25)
+        self.resultpercentage.setFixedWidth(400)
         self.resultpercentage.setMaximum(100)
         self.resultpercentage.setValue(self.conf_dic[self.conf_rank[-1]])
 
@@ -75,7 +75,7 @@ class Compare(QWidget):
         self.staticbutton2 = Button("막대 그래프", self.buttonClicked)
 
 
-        self.optionbox.addStretch(1)
+        # self.optionbox.addStretch(1)
         self.optionbox.addWidget(self.resultpercentage)
         self.optionbox.addStretch(1)
         self.optionbox.addWidget(self.staticbutton2)
