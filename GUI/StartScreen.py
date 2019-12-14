@@ -6,8 +6,8 @@ from compare import Compare
 from introduction import Intro
 from regist import Register, user_lst
 
-lst = ["/home/user/Downloads/", "/home/ehyeok9/github/"]
-directory = lst[1]
+lst = ["/home/user/", "/home/ehyeok9/github/"]
+directory = lst[0]
 class ComboBox(QComboBox):
     popupAboutToBeShown = pyqtSignal()
 
@@ -53,11 +53,9 @@ class FaceRecognition(QWidget):
         self.title.setStyleSheet("color:#3232FF")
         self.title.setFont(QFont("Times", 50, weight= QFont.Bold))
 
-        self.enrollmentbutton = Button("등록갱", self.buttonClicked)
+        self.enrollmentbutton = Button("등록하기", self.buttonClicked)
         self.startbutton = Button("결과보기", self.buttonClicked)
         self.introductionbutton = Button("사용설명", self.buttonClicked)
-        # self.combobox = QComboBox(self)
-        # self.combobox.clicked.connect(self.updateComb)
 
         self.combobox = ComboBox(self)
         self.combobox.popupAboutToBeShown.connect(self.updateComb)

@@ -3,12 +3,16 @@ from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import sys
-lst = ["/home/user/Downloads/", "/home/ehyeok9/github/"]
-directory = lst[1]
+import pickle
+lst = ["/home/user/", "/home/ehyeok9/github/"]
+directory = lst[0]
 sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
 from Facial_Recognition import FaceRecognition, FaceCapture, data_path, directory
-
-user_lst = [{"name": "Kevin", "gender": "man"}]
+try:
+    with open('user_info.txt', 'rb') as f:
+        user_lst = pickle.load(f)
+except:
+    user_lst = []
 
 class Button(QToolButton):
 
@@ -86,6 +90,9 @@ class Register(QWidget):
         dic = {"name": searchtext, "gender": combotext}
         user_lst.append(dic)
         FaceCapture.capture_face(searchtext)
+
+        with open('user_info.txt', 'wb') as f:
+            pickle.dump(user_lst, f)
 
         self.userimage = QPixmap(directory + "Software-Project-II---AD-project/Face_Recognition/userFaces/" + searchtext + "/user1.jpg")
         self.userimage = self.userimage.scaledToHeight(256)

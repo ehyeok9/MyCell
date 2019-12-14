@@ -5,8 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
 import os
-lst = ["/home/user/Downloads/", "/home/ehyeok9/github/"]
-directory = lst[1]
+lst = ["/home/user/", "/home/ehyeok9/github/"]
+directory = lst[0]
 folder_path = directory + "Software-Project-II---AD-project/"
 data_path = [folder_path + 'Face_Recognition/userFaces/', folder_path + 'Face_Recognition/othersFaces/', folder_path + 'Face_Recognition/']
 
@@ -127,11 +127,11 @@ class FaceCapture:
 
         cap = cv2.VideoCapture(0)
         count = 0
+        os.system("mkdir {}".format(data_path[0] + username + '/'))
 
         while True:
             ret, frame = cap.read()
             if FaceCapture.face_extractor(frame) is not None:
-                os.system("mkdir {}".format(data_path[0] + username + '/'))
                 count += 1
                 face = cv2.resize(FaceCapture.face_extractor(frame), (200, 200))
 
