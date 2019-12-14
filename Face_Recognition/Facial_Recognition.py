@@ -41,7 +41,7 @@ class FaceRecognition:
 
     def update_data(self):
         self.userFiles = [f for f in listdir(data_path[0]) if isfile(join(data_path[0], f))]
-        self.otherFiles = [f for f in listdir(data_path[1]) if isfile(join(data_path[1], f))]
+        self.otherFiles = [f for f in listdir(self.gender_path) if isfile(join(self.gender_path, f))]
 
     def face_detector(self, img):
 
