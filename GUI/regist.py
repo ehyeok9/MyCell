@@ -5,7 +5,7 @@ from PyQt5.QtGui import *
 import sys
 import pickle
 lst = ["/home/user/", "/home/ehyeok9/github/"]
-directory = lst[1]
+directory = lst[0]
 sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
 from Facial_Recognition import FaceRecognition, FaceCapture, data_path, directory
 try:

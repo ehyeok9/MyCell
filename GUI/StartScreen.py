@@ -5,9 +5,14 @@ from PyQt5.QtGui import *
 from compare import Compare
 from introduction import Intro
 from regist import Register, user_lst
-
+import os
+import sys
+import pickle
 lst = ["/home/user/", "/home/ehyeok9/github/"]
-directory = lst[1]
+directory = lst[0]
+sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
+from Facial_Recognition import data_path
+
 class ComboBox(QComboBox):
     popupAboutToBeShown = pyqtSignal()
 
@@ -116,6 +121,15 @@ class FaceRecognition(QWidget):
         elif key == "등록하기":
             self.register = Register()
             self.register.show()
+        elif key == "유저삭제":
+            username = self.textinput.text()
+            for i, user in enumerate(user_lst):
+                if user["name"] == username:
+                    os.system("rm -r {}".format(data_path[0] + username + '/'))
+                    del user_lst[i]
+                    with open('user_info.txt', 'wb') as f:
+                        pickle.dump(user_lst, f)
+
         
 
     def updateComb(self):
