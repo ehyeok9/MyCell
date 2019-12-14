@@ -240,10 +240,96 @@ Software Project II
 
 
 
-
 구현 상세 설계
 --------------
-
+<table class="tg">
+  <tr>
+    <th class="tg-nrix">FaceRecognition</th>
+    <th class="tg-nrix">이름</th>
+    <th class="tg-nrix">역할, 설명</th>
+  </tr>
+  <tr>
+    <td class="tg-nrix" rowspan="10">attribute</td>
+    <td class="tg-nrix">self.username</td>
+    <td class="tg-cly1">인자로 받아온 유저의 이름을 저장하는 변수이다.</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix">self.usergender</td>
+    <td class="tg-cly1">인자로 받아온 유저의 성별을 저장하는 변수이다.</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix">self.face_classifier</td>
+    <td class="tg-cly1">xml 파일에 저장되어 있는 데이터를 바탕으로 학습한 얼굴을 찾는 객체를 선언한다. </td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">self.userFolderPath</td>
+    <td class="tg-0lax">유저의 사진이 저장되어 있는 디렉토리의 주소를 저장한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">self.userFiles</td>
+    <td class="tg-0lax">self.userFolderPath 주소 안에 있는 파일들의 이름을 저장하는 리스트이다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">self.gender_path</td>
+    <td class="tg-0lax">유저의 성별을 바탕으로 비교할 사진이 담겨진 디렉토리의 주소를 저장한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">self.otherFiles</td>
+    <td class="tg-0lax">self.gender_path 주소 안에 있는 파일들의 이름을 저장하는 리스트이다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">self.Tranning_Data</td>
+    <td class="tg-0lax">user 사진의 이미지 데이터를 리스트로 받아와서 리스트를 요소로 갖는 리스트이다. </td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">self.Labels</td>
+    <td class="tg-0lax">user 사진에 번호를 매겨 저장하는 리스트이다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">self.model</td>
+    <td class="tg-0lax">self.Lables와 self.Tranning_Data를 바탕으로 학습한 모델이다.</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix" rowspan="5">methods</td>
+    <td class="tg-baqh">__init__</td>
+    <td class="tg-0lax">변수들을 선언하고 저장한다. self.userfiles와 self.userFolderPath를 이용해 유저 사진의 주소를 구하고 데이터를 읽어와 self.Training_Data에 저장한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix">update_data</td>
+    <td class="tg-cly1">self.userFolderPath와 self.gender_path를 다시 스캔해서 저장한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix">face_detector</td>
+    <td class="tg-cly1">self.face_classifier를 이용해 주어진 img에서 얼굴을 추출해 faces에 저장하고 사이즈를 200 x 200 으로 바꿔 roi에 저장해 원본파일과 함께 출력한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix">compare_face</td>
+    <td class="tg-cly1">self.genderPath와 self.otherFiles를 이용해 연예인 사진의 주소를 구하고 이미지를 불러온다. 그리고 face_detector를 이용해 연예인의 얼굴만 추출한 데이터를 self.model를 이용해 유저와의 유사도를 예측한다. 마지막으로 결과값을 연예인의 이름과 짝 지어 딕셔너리 형태로 출력한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">make_file</td>
+    <td class="tg-0lax">입력 주소와 출력 주소를 받아 입력 주소에서 얼굴만 찾아서 잘라낸 이미지를 출력주소에 저장한다.</td>
+  </tr>
+  <tr>
+    <th class="tg-baqh">FaceCapture</td>
+    <th class="tg-baqh">이름</td>
+    <th class="tg-baqh">역할, 설명</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">attribute</td>
+    <td class="tg-baqh">-</td>
+    <td class="tg-baqh">-</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix" rowspan="2">methods</td>
+    <td class="tg-baqh">face_extractor</td>
+    <td class="tg-0lax">이미지를 받아와 흑백으로 전환해 얼굴을 찾고 이미지를 잘라내 출력한다.</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">capture_face</td>
+    <td class="tg-0lax">기본값으로 설정되어 있는 카메라를 통해 이미지를 입력받는다. username을 인자로 받아서 user이름으로 된 디렉토리를 만들고 그 안에 유저의 얼굴만을 잘라낸 사진들을 저장한다.</td>
+  </tr>
+</table>
 코딩
 ----
 
