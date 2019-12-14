@@ -84,9 +84,13 @@ class BarGraph(QWidget):
 
         elif key == "More":
             displayString = ""
-            for i in dic:
+            for i in sorted(list(self.conf_dict.keys()), key=lambda x: self.conf_dict[x], reverse=True):
+                if i == "result":
+                    continue
                 displayString += "{} = {} ".format(i, dic[i])
+                displayString += "\n"
 
             self.textEdit.setText(displayString)
+            self.textEdit.setFontPointSize(30)
 
         # code = self.lineEdit.text()

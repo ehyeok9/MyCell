@@ -36,7 +36,7 @@ class Button(QToolButton):
 
 
 
-class FaceRecognition(QWidget):
+class MainWindow(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -148,7 +148,7 @@ if __name__ == '__main__':
     import sys
 
     app = QApplication(sys.argv)
-    fr = FaceRecognition()
+    fr = MainWindow()
     fr.show()
     sys.exit(app.exec_())
 
