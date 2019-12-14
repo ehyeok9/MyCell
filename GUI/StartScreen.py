@@ -7,7 +7,7 @@ from introduction import Intro
 from regist import Register, user_lst
 
 lst = ["/home/user/", "/home/ehyeok9/github/"]
-directory = lst[0]
+directory = lst[1]
 class ComboBox(QComboBox):
     popupAboutToBeShown = pyqtSignal()
 
@@ -53,6 +53,8 @@ class FaceRecognition(QWidget):
         self.title.setStyleSheet("color:#3232FF")
         self.title.setFont(QFont("Times", 50, weight= QFont.Bold))
 
+        self.textinput = QLineEdit()
+        self.removebutton = Button("유저삭제", self.buttonClicked)
         self.enrollmentbutton = Button("등록하기", self.buttonClicked)
         self.startbutton = Button("결과보기", self.buttonClicked)
         self.introductionbutton = Button("사용설명", self.buttonClicked)
@@ -64,6 +66,11 @@ class FaceRecognition(QWidget):
         self.vlayout = QVBoxLayout(self)
         self.buttonLayout = QVBoxLayout(self)
 
+        self.removelayout = QHBoxLayout()
+        self.removelayout.addWidget(self.textinput)
+        self.removelayout.addWidget(self.removebutton)
+
+        self.buttonLayout.addLayout(self.removelayout)
         self.buttonLayout.addWidget(self.enrollmentbutton)
 
         self.vlayout.addWidget(self.title)
@@ -106,9 +113,10 @@ class FaceRecognition(QWidget):
         elif key == "사용설명":
             self.intro = Intro()
             self.intro.show()
-        elif key == "등록갱":
+        elif key == "등록하기":
             self.register = Register()
             self.register.show()
+        
 
     def updateComb(self):
         self.combobox.clear()

@@ -5,7 +5,7 @@ from PyQt5.QtGui import *
 import sys
 import pickle
 lst = ["/home/user/", "/home/ehyeok9/github/"]
-directory = lst[0]
+directory = lst[1]
 sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
 from Facial_Recognition import FaceRecognition, FaceCapture, data_path, directory
 try:
@@ -53,7 +53,11 @@ class Register(QWidget):
         self.title.setStyleSheet("color:#3232FF")
         self.title.setFont(QFont("Times", 50, weight= QFont.Bold))
 
+        self.namelabel = QLabel("Name")
+
         self.progress = QProgressBar()
+        self.progress.setGeometry(0,0,300, 25)
+        self.progress.setMaximum(100)
 
         self.combo = QComboBox(self)
         self.combo.addItem("man")
@@ -65,6 +69,7 @@ class Register(QWidget):
         self.rightlayout = QVBoxLayout()
 
         self.rightlayout.addStretch(1)
+        self.rightlayout.addWidget(self.namelabel)
         self.rightlayout.addWidget(self.search)
         self.rightlayout.addStretch(1)
         self.rightlayout.addWidget(self.combo)
