@@ -20,7 +20,12 @@ class Compare(QWidget):
         self.setWindowTitle("유사도 측정 결과")
 
         self.userimagebox = QLabel("본인 사진")
+        self.userimagebox.setFont(QFont("Times", 15, weight=QFont.Bold))
+        self.userimagebox.setAlignment(Qt.AlignCenter)
+
         self.resultimagebox = QLabel("가장 비슷한 연예인")
+        self.resultimagebox.setFont(QFont("Times", 15, weight=QFont.Bold))
+        self.resultimagebox.setAlignment(Qt.AlignCenter)
 
         self.userimage_label = QLabel()
         self.userimage = QPixmap(data_path[0] + self.f.username + "/user1.jpg")
@@ -37,7 +42,12 @@ class Compare(QWidget):
 
 
         self.vstext = QLabel("vs",self)
-        self.resulttext = QLabel(str(self.conf_dic[self.conf_rank[-1]]) + "%", self)
+        self.vstext.setFont(QFont("Times", 15, weight=QFont.Bold))
+
+        self.resultpercentage = QProgressBar(self)
+        self.resultpercentage.setGeometry(0,0,300,25)
+        self.resultpercentage.setMaximum(100)
+        self.resultpercentage.setValue(self.conf_dic[self.conf_rank[-1]])
 
         self.leftbox = QVBoxLayout()
         self.midbox = QVBoxLayout()
@@ -58,21 +68,17 @@ class Compare(QWidget):
 
         self.midbox.addStretch(2)
         self.midbox.addWidget(self.vstext)
-        self.midbox.addStretch(1)
-        self.midbox.addWidget(self.resulttext)
-        self.midbox.addStretch(1)
+        self.midbox.addStretch(2)
 
         self.optionbox = QHBoxLayout()
-        self.staticbutton1 = Button("원그래프", self.buttonClicked)
+
         self.staticbutton2 = Button("막대 그래프", self.buttonClicked)
-        self.staticbutton3 = Button("기타", self.buttonClicked)
+
 
         self.optionbox.addStretch(1)
-        self.optionbox.addWidget(self.staticbutton1)
+        self.optionbox.addWidget(self.resultpercentage)
         self.optionbox.addStretch(1)
         self.optionbox.addWidget(self.staticbutton2)
-        self.optionbox.addStretch(1)
-        self.optionbox.addWidget(self.staticbutton3)
         self.optionbox.addStretch(1)
 
         self.mainwindow = QHBoxLayout()

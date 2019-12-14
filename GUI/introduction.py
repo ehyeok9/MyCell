@@ -19,7 +19,8 @@ class Intro(QWidget):
 
         self.introduce = QTextBrowser()
         self.introduce.append(self.text)
-        self.mainlayout.addWidget(self.introduce,0)
+        self.introduce.setAlignment(Qt.AlignCenter)
+        self.mainlayout.addWidget(self.introduce)
 
 
         self.setWindowTitle("사용설명")
