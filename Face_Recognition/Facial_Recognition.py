@@ -105,6 +105,8 @@ class FaceRecognition:
 
 class FaceCapture:
 
+    count = 0
+
     @staticmethod
     def face_extractor(img):
         face_classifier = cv2.CascadeClassifier(data_path[2] + 'haarcascade_frontalface_default.xml')
