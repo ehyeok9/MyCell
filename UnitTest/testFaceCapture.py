@@ -1,7 +1,7 @@
 import unittest
 import sys
 lst = ["/home/user/", "/home/ehyeok9/github/"]
-directory = lst[1]
+directory = lst[0]
 sys.path.insert(0, directory + "Software-Project-II---AD-project/Face_Recognition")
 from Facial_Recognition import FaceRecognition, FaceCapture
 from PyQt5 import *
@@ -12,7 +12,7 @@ class testFaceCapture(unittest.TestCase):
 
     def setUp(self):
         self.face = FaceCapture
-        self.image = Image.open("/home/ehyeok9/github/Software-Project-II---AD-project/Face_Recognition/othersFaces/menFaces
+        self.image = Image.open(directory + "Software-Project-II---AD-project/Face_Recognition/othersFaces/menFaces")
 ")
     def testFaceExtractor(self):
         self.assertIsNotNone(self.face.face_extractor(self.image))

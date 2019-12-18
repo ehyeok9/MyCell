@@ -352,14 +352,35 @@ Software Project II
 
 <table class="tg"> <tr> <th class="tg-fsme">class Register<br></th> <th class="tg-fsme">이름<br></th> <th class="tg-fsme">역할, 설명<br></th> </tr> <tr> <td class="tg-9wq8" rowspan="9"><br>Attributes<br>(properties)<br></td> <td class="tg-9wq8">namelabel<br></td> <td class="tg-lboi"><span style="font-weight:400;font-style:normal">"Name"이라는 문자열을 갖는 QLabel이다.</span><br></td> </tr> <tr> <td class="tg-9wq8">search</td> <td class="tg-lboi">자신의 이름을 쓸 QLineEdit이다.<br></td> </tr> <tr> <td class="tg-9wq8">userimage<br></td> <td class="tg-lboi"><span style="font-weight:400;font-style:normal">QPixmap을 활용하여 절대경로를 바탕으로 userimage를 불러왔고</span><br><span style="font-weight:400;font-style:normal">scaledToHeight()를 통해 높이 기준으로 이미지를 축소 시켰다. </span><br><span style="font-weight:400;font-style:normal">처음에는 회색 빈 화면을 띄우다가 검색 버튼이 눌리고 난 후</span><br><span style="font-weight:400;font-style:normal">userimage로 변경된다.</span><br></td> </tr> <tr> <td class="tg-9wq8">userimage_label</td> <td class="tg-lboi"><span style="font-weight:400;font-style:normal">userimage를 widget으로 변환시켜주기 위해 QLabel을 바인딩 시켜놓음.</span></td> </tr> <tr> <td class="tg-9wq8">progress<br></td> <td class="tg-lboi"><span style="font-weight:400;font-style:normal">QProgressBar를 활용하여 퍼센테이지를 시각화하였다</span></td> </tr> <tr> <td class="tg-9wq8">combo</td> <td class="tg-lboi">"man", "woman" 을 선택할 combobox를 만들었다.</td> </tr> <tr> <td class="tg-9wq8">searchbutton<br></td> <td class="tg-lboi">namelabel, combo 를 바탕으로 buttonClicked()를 실행한다.<br></td> </tr> <tr> <td class="tg-9wq8">rightlayout<br></td> <td class="tg-lboi">namelabel, search, combo, searchbutton, progress를 추가해줄 QVBoxLayout이다.<br></td> </tr> <tr> <td class="tg-9wq8">mainlayout<br></td> <td class="tg-lboi">userimage_label, rightlayout을 추가할 QHBoxLayout이다.<br></td> </tr> <tr> <td class="tg-c3ow" rowspan="3">methods<br></td> <td class="tg-c3ow">**inint**()</td> <td class="tg-0pky">유저를 등록해줄 window를 띄운다.<br></td> </tr> <tr> <td class="tg-c3ow"><br><br>buttonClicked()</td> <td class="tg-0pky">search, combo의 텍스트를 활용하여, 만약 이 값이 존재한다면 덮어씌우고<br>없다면 이를 dictionary로 만들어 user_lst에 append한다. 그 후 이를 "user_info.txt"에 <br> user_lst를 저장하고 사진을 찍는다. 사진을 찍은 후 userimage를 gray에서 <br>본인 이미지로 변환시킨다.<br></td> </tr> <tr> <td class="tg-c3ow">center</td> <td class="tg-0pky"><span style="font-weight:400;font-style:normal">window를 화면의 중앙에 위치시키는 메소드이다.</span></td> </tr></table>
 코딩
-----------
+-------------
+
 https://github.com/ehyeok9/Software-Project-II---AD-project
 
 단위 테스트
 -----------
 
+<img src="./img/test.png">
+
 시스템 통합
 -----------
 
+<img src="./img/start.png">
+
+<img src="./img/introduction.png">
+
+<img src="./img/enroll.png">
+
+<img src="./img/chooseuser.png">
+
+<img src="./img/compare.png">
+
+<img src="./img/userremove.png">
+
 통합 테스트
 -----------
+
+| Test Case |      UUT       |                         Description                          |
+| :-------: | :------------: | :----------------------------------------------------------: |
+|   UT1-1   | FaceRecogniton |   핵심 알고리즘인 얼굴 인식 기능이 제대로 동작하는지 확인    |
+|   IT1-1   |  StartScreen   | 시작화면부터 유저를 등록하고 검사하고 삭제하는 과정까지를 전부 테스트 |
+
