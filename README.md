@@ -82,7 +82,7 @@ Software Project II
 </table>
 
 클래스 인터페이스 설계
--------------------------------
+----------------------
 
 <table class="tg">
   <tr>
@@ -243,116 +243,37 @@ Software Project II
 
 구현 상세 설계
 --------------
+
 > ### class FaceRecognition & FaceCapture
-<table class="tg">
-  <tr>
-    <th class="tg-nrix">FaceRecognition</th>
-    <th class="tg-nrix">이름</th>
-    <th class="tg-nrix">역할, 설명</th>
-  </tr>
-  <tr>
-    <td class="tg-nrix" rowspan="10">attribute</td>
-    <td class="tg-nrix">self.username</td>
-    <td class="tg-cly1">인자로 받아온 유저의 이름을 저장하는 변수이다.</td>
-  </tr>
-  <tr>
-    <td class="tg-nrix">self.usergender</td>
-    <td class="tg-cly1">인자로 받아온 유저의 성별을 저장하는 변수이다.</td>
-  </tr>
-  <tr>
-    <td class="tg-nrix">self.face_classifier</td>
-    <td class="tg-cly1">xml 파일에 저장되어 있는 데이터를 바탕으로 학습한 얼굴을 찾는 객체를 선언한다. </td>
-  </tr>
-  <tr>
-    <td class="tg-baqh">self.userFolderPath</td>
-    <td class="tg-0lax">유저의 사진이 저장되어 있는 디렉토리의 주소를 저장한다.</td>
-  </tr>
-  <tr>
-    <td class="tg-baqh">self.userFiles</td>
-    <td class="tg-0lax">self.userFolderPath 주소 안에 있는 파일들의 이름을 저장하는 리스트이다.</td>
-  </tr>
-  <tr>
-    <td class="tg-baqh">self.gender_path</td>
-    <td class="tg-0lax">유저의 성별을 바탕으로 비교할 사진이 담겨진 디렉토리의 주소를 저장한다.</td>
-  </tr>
-  <tr>
-    <td class="tg-baqh">self.otherFiles</td>
-    <td class="tg-0lax">self.gender_path 주소 안에 있는 파일들의 이름을 저장하는 리스트이다.</td>
-  </tr>
-  <tr>
-    <td class="tg-baqh">self.Tranning_Data</td>
-    <td class="tg-0lax">user 사진의 이미지 데이터를 리스트로 받아와서 리스트를 요소로 갖는 리스트이다. </td>
-  </tr>
-  <tr>
-    <td class="tg-baqh">self.Labels</td>
-    <td class="tg-0lax">user 사진에 번호를 매겨 저장하는 리스트이다.</td>
-  </tr>
-  <tr>
-    <td class="tg-baqh">self.model</td>
-    <td class="tg-0lax">self.Lables와 self.Tranning_Data를 바탕으로 학습한 모델이다.</td>
-  </tr>
-  <tr>
-    <td class="tg-nrix" rowspan="5">methods</td>
-    <td class="tg-baqh">__init__</td>
-    <td class="tg-0lax">변수들을 선언하고 저장한다. self.userfiles와 self.userFolderPath를 이용해 유저 사진의 주소를 구하고 데이터를 읽어와 self.Training_Data에 저장한다.</td>
-  </tr>
-  <tr>
-    <td class="tg-nrix">update_data</td>
-    <td class="tg-cly1">self.userFolderPath와 self.gender_path를 다시 스캔해서 저장한다.</td>
-  </tr>
-  <tr>
-    <td class="tg-nrix">face_detector</td>
-    <td class="tg-cly1">self.face_classifier를 이용해 주어진 img에서 얼굴을 추출해 faces에 저장하고 사이즈를 200 x 200 으로 바꿔 roi에 저장해 원본파일과 함께 출력한다.</td>
-  </tr>
-  <tr>
-    <td class="tg-nrix">compare_face</td>
-    <td class="tg-cly1">self.genderPath와 self.otherFiles를 이용해 연예인 사진의 주소를 구하고 이미지를 불러온다. 그리고 face_detector를 이용해 연예인의 얼굴만 추출한 데이터를 self.model를 이용해 유저와의 유사도를 예측한다. 마지막으로 결과값을 연예인의 이름과 짝 지어 딕셔너리 형태로 출력한다.</td>
-  </tr>
-  <tr>
-    <td class="tg-baqh">make_file</td>
-    <td class="tg-0lax">입력 주소와 출력 주소를 받아 입력 주소에서 얼굴만 찾아서 잘라낸 이미지를 출력주소에 저장한다.</td>
-  </tr>
-  <tr>
-    <th class="tg-baqh">FaceCapture</td>
-    <th class="tg-baqh">이름</td>
-    <th class="tg-baqh">역할, 설명</td>
-  </tr>
-  <tr>
-    <td class="tg-baqh">attribute</td>
-    <td class="tg-baqh">-</td>
-    <td class="tg-baqh">-</td>
-  </tr>
-  <tr>
-    <td class="tg-nrix" rowspan="2">methods</td>
-    <td class="tg-baqh">face_extractor</td>
-    <td class="tg-0lax">이미지를 받아와 흑백으로 전환해 얼굴을 찾고 이미지를 잘라내 출력한다.</td>
-  </tr>
-  <tr>
-    <td class="tg-baqh">capture_face</td>
-    <td class="tg-0lax">기본값으로 설정되어 있는 카메라를 통해 이미지를 입력받는다. username을 인자로 받아서 user이름으로 된 디렉토리를 만들고 그 안에 유저의 얼굴만을 잘라낸 사진들을 저장한다.</td>
-  </tr>
-</table>
+
+<table class="tg"> <tr> <th class="tg-nrix">FaceRecognition</th> <th class="tg-nrix">이름</th> <th class="tg-nrix">역할, 설명</th> </tr> <tr> <td class="tg-nrix" rowspan="10">attribute</td> <td class="tg-nrix">self.username</td> <td class="tg-cly1">인자로 받아온 유저의 이름을 저장하는 변수이다.</td> </tr> <tr> <td class="tg-nrix">self.usergender</td> <td class="tg-cly1">인자로 받아온 유저의 성별을 저장하는 변수이다.</td> </tr> <tr> <td class="tg-nrix">self.face_classifier</td> <td class="tg-cly1">xml 파일에 저장되어 있는 데이터를 바탕으로 학습한 얼굴을 찾는 객체를 선언한다. </td> </tr> <tr> <td class="tg-baqh">self.userFolderPath</td> <td class="tg-0lax">유저의 사진이 저장되어 있는 디렉토리의 주소를 저장한다.</td> </tr> <tr> <td class="tg-baqh">self.userFiles</td> <td class="tg-0lax">self.userFolderPath 주소 안에 있는 파일들의 이름을 저장하는 리스트이다.</td> </tr> <tr> <td class="tg-baqh">self.gender_path</td> <td class="tg-0lax">유저의 성별을 바탕으로 비교할 사진이 담겨진 디렉토리의 주소를 저장한다.</td> </tr> <tr> <td class="tg-baqh">self.otherFiles</td> <td class="tg-0lax">self.gender_path 주소 안에 있는 파일들의 이름을 저장하는 리스트이다.</td> </tr> <tr> <td class="tg-baqh">self.Tranning_Data</td> <td class="tg-0lax">user 사진의 이미지 데이터를 리스트로 받아와서 리스트를 요소로 갖는 리스트이다. </td> </tr> <tr> <td class="tg-baqh">self.Labels</td> <td class="tg-0lax">user 사진에 번호를 매겨 저장하는 리스트이다.</td> </tr> <tr> <td class="tg-baqh">self.model</td> <td class="tg-0lax">self.Lables와 self.Tranning_Data를 바탕으로 학습한 모델이다.</td> </tr> <tr> <td class="tg-nrix" rowspan="5">methods</td> <td class="tg-baqh">**init**</td> <td class="tg-0lax">변수들을 선언하고 저장한다. self.userfiles와 self.userFolderPath를 이용해 유저 사진의 주소를 구하고 데이터를 읽어와 self.Training_Data에 저장한다.</td> </tr> <tr> <td class="tg-nrix">update_data</td> <td class="tg-cly1">self.userFolderPath와 self.gender_path를 다시 스캔해서 저장한다.</td> </tr> <tr> <td class="tg-nrix">face_detector</td> <td class="tg-cly1">self.face_classifier를 이용해 주어진 img에서 얼굴을 추출해 faces에 저장하고 사이즈를 200 x 200 으로 바꿔 roi에 저장해 원본파일과 함께 출력한다.</td> </tr> <tr> <td class="tg-nrix">compare_face</td> <td class="tg-cly1">self.genderPath와 self.otherFiles를 이용해 연예인 사진의 주소를 구하고 이미지를 불러온다. 그리고 face_detector를 이용해 연예인의 얼굴만 추출한 데이터를 self.model를 이용해 유저와의 유사도를 예측한다. 마지막으로 결과값을 연예인의 이름과 짝 지어 딕셔너리 형태로 출력한다.</td> </tr> <tr> <td class="tg-baqh">make_file</td> <td class="tg-0lax">입력 주소와 출력 주소를 받아 입력 주소에서 얼굴만 찾아서 잘라낸 이미지를 출력주소에 저장한다.</td> </tr> <tr> <th class="tg-baqh">FaceCapture</td> <th class="tg-baqh">이름</td> <th class="tg-baqh">역할, 설명</td> </tr> <tr> <td class="tg-baqh">attribute</td> <td class="tg-baqh">\-</td> <td class="tg-baqh">\-</td> </tr> <tr> <td class="tg-nrix" rowspan="2">methods</td> <td class="tg-baqh">face_extractor</td> <td class="tg-0lax">이미지를 받아와 흑백으로 전환해 얼굴을 찾고 이미지를 잘라내 출력한다.</td> </tr> <tr> <td class="tg-baqh">capture_face</td> <td class="tg-0lax">기본값으로 설정되어 있는 카메라를 통해 이미지를 입력받는다. username을 인자로 받아서 user이름으로 된 디렉토리를 만들고 그 안에 유저의 얼굴만을 잘라낸 사진들을 저장한다.</td> </tr> </table>
 
 > ### class MainWindow
 
 <table class="tg"> <tr> <th class="tg-y0n7">class MainWindow<br></th> <th class="tg-y0n7">이름<br></th> <th class="tg-y0n7">역할, 설명<br></th> </tr> <tr> <td class="tg-nrix" rowspan="14"><br>Attribute<br>(properties)<br></td> <td class="tg-nrix">background<br></td> <td class="tg-cly1">시작 window의 배경화면 이미지를 절대경로를 통해 바인딩한 변수.<br>QSize를 통해 width와 height을 맞춰주었다.</td> </tr> <tr> <td class="tg-nrix">palette<br></td> <td class="tg-cly1">배경화면을 설정해주기 위해 QPalette를 바인딩한 변수. <br>setBrush로 background 이미지를 받음.<br></td> </tr> <tr> <td class="tg-nrix">title <br></td> <td class="tg-cly1">"Face Recognition"이라는 문자열을 갖는 QLabel. <br>setStyleSheet, setFont로 문자열의 색, 글꼴, 글자 사이즈, 볼드체를 설정해주었다.</td> </tr> <tr> <td class="tg-nrix">textinput<br></td> <td class="tg-cly1">QLineEdit을 사용하여 지울 이름을 작성하게 하였다.<br></td> </tr> <tr> <td class="tg-baqh">removebutton<br></td> <td class="tg-0lax">textinput에 적혀져 있는 텍스트에 해당하는 유저를 삭제하는 기능을 하는 버튼이다.<br></td> </tr> <tr> <td class="tg-baqh">enrollmentbutton<br></td> <td class="tg-0lax">Register window를 실행하여 사진을 찍고 유저 등록을 위한 버튼이다.<br></td> </tr> <tr> <td class="tg-baqh">combobox<br></td> <td class="tg-0lax">등록한 유저들을 선택할 수 있는 combobox이다.<br></td> </tr> <tr> <td class="tg-baqh">startbutton<br></td> <td class="tg-0lax">combobox에 선택 된 유저의 결과를 보여주는 버튼이다.<br></td> </tr> <tr> <td class="tg-baqh">introductionbutton<br></td> <td class="tg-0lax">사용설명서의 내용을 담고 있는Intro window를 실행시키기 위한 버튼이다.<br></td> </tr> <tr> <td class="tg-baqh">removelayout<br></td> <td class="tg-0lax">textinput Widget과 removebutton을 추가할 QHBoxLayout이다.<br></td> </tr> <tr> <td class="tg-baqh">resultlayout<br></td> <td class="tg-0lax">combobox Widget과 startbuton을 추가할 QHBoxLayout이다.<br></td> </tr> <tr> <td class="tg-baqh">buttonlayout<br></td> <td class="tg-0lax">removelayout, enrollmentbutton, resultlayout, introductionbutton을 추가할 <br>QVBoxLayout이다.<br></td> </tr> <tr> <td class="tg-baqh">vlayout<br></td> <td class="tg-0lax">title, buttonlayout을 추가할 QVBoxLayout이다.<br></td> </tr> <tr> <td class="tg-baqh">hlayout<br></td> <td class="tg-0lax">addStrech를 통해 vlayout을 한쪽으로 몰아 넣어 줄 QHBoxLayout이다<br></td> </tr> <tr> <td class="tg-baqh" rowspan="4"><br><br><br>methods</td> <td class="tg-baqh">**intit**()</td> <td class="tg-0lax">초기 시작 window를 화면에 띄우는 메소드이다.<br></td> </tr> <tr> <td class="tg-baqh">buttonClicked()</td> <td class="tg-0lax">버튼이 눌리면 버튼의 텍스트에 따라 각각의 기능을 수행하게 만들어 주는 메소드이다.<br></td> </tr> <tr> <td class="tg-baqh">updateCombo<br></td> <td class="tg-0lax">combobox 유저의 이름을 추가하는 메소드이다.<br></td> </tr> <tr> <td class="tg-baqh">center<br></td> <td class="tg-0lax">window를 화면의 중앙에 위치시키는 메소드이다.<br></td> </tr></table>
+
 > ### class Button
 
 <table class="tg"> <tr> <th class="tg-y0n7">class Button<br></th> <th class="tg-y0n7">이름<br></th> <th class="tg-y0n7">역할, 설명<br></th> </tr> <tr> <td class="tg-nrix" rowspan="2">methods<br></td> <td class="tg-cly1">**init**()<br></td> <td class="tg-cly1">text와 callback를 인자로 받아 버튼의 텍스트를 text로 하고 <br>callback 해당하는 내용이 버튼이 눌리면 실행되게 한다.</td> </tr> <tr> <td class="tg-nrix">sizeHint</td> <td class="tg-cly1">버튼의 width와 height를 맞춰준다.<br></td> </tr></table>
+
 > ### class ComboBox
 
 <table class="tg"> <tr> <th class="tg-fsme">class ComboBox<br></th> <th class="tg-fsme">이름<br></th> <th class="tg-fsme">역할, 설명<br></th> </tr> <tr> <td class="tg-9wq8"><br>Attributes<br>(properties)<br></td> <td class="tg-9wq8">popupAboutToBeShown</td> <td class="tg-lboi">pyatSingal을 바인딩한 변수이다.<br></td> </tr> <tr> <td class="tg-9wq8">methods<br></td> <td class="tg-9wq8">showPopup</td> <td class="tg-lboi">콤보 박스를 클릭할 때마다 자동으로 값을 업데이트 해주는 메소드이다.</td> </tr></table>
+
 > ### class Intro
 
 <table> <tr> <th>class Intro<br></th> <th>이름<br></th> <th>역할, 설명<br></th> </tr> <tr> <td rowspan="3"><br>attribute<br>(properties)<br></td> <td>text<br></td> <td>설명이 포함 되어져 있는 문자열을 바인딩할 변수<br></td> </tr> <tr> <td>introduce<br></td> <td><br>Layout 에 더해줄 Widget이자 text의 내용을 담을 변수.<br>Qt.AlignLeft로 왼쪽 정렬을 해주었다.<br></td> </tr> <tr> <td>mainlayout</td> <td>화면에 표시할 window<br></td> </tr> <tr> <td>methods<br></td> <td>**intit**()<br></td> <td>화면에 사용설명서 창을 띄움<br></td> </tr> </table>
+
 > ### class compare
 
 <table class="tg"> <tr> <th class="tg-fsme">class Compare<br></th> <th class="tg-fsme">이름<br></th> <th class="tg-fsme">역할, 설명<br></th> </tr> <tr> <td class="tg-9wq8" rowspan="18">Attributes<br>(properties)</td> <td class="tg-9wq8">f<br></td> <td class="tg-lboi">FaceRecognition() 클래스를 바인딩한 변수이다.</td> </tr> <tr> <td class="tg-9wq8">conf_dic<br></td> <td class="tg-lboi">f.compare_face()를 실해하여 userimage와 otherimage를 비교한 결과 값을 <br>딩dictionary 형식으로 return 받은 값을 바인딩한 변수이다.</td> </tr> <tr> <td class="tg-c3ow">conf_rank<br></td> <td class="tg-0pky">conf_dic의 key를 key에 따른 value를 기준으로 정렬시켜 놓은 리스트이다.<br></td> </tr> <tr> <td class="tg-c3ow">userimagebox</td> <td class="tg-0pky"><span style="font-weight:400;font-style:normal">"본인 사진"이라는 문자열을 갖는 QLabel을 바인딩한 변수이다.</span><br><span style="font-weight:400;font-style:normal">setStyleSheet, setFont로 문자열의 색, 글꼴, 글자 사이즈, 볼드체를 설정해주었다</span>.</td> </tr> <tr> <td class="tg-c3ow">resultimagebox<br></td> <td class="tg-0pky"><span style="font-weight:400;font-style:normal">"가장 비슷한 연예인"이라는 문자열을 갖는 QLabel을 바인딩한 변수이다.</span><br><span style="font-weight:400;font-style:normal">setStyleSheet, setFont로 문자열의 색, 글꼴, 글자 사이즈, 볼드체를 설정해주었다</span>.</td> </tr> <tr> <td class="tg-c3ow">userimage</td> <td class="tg-0pky">QPixmap을 활용하여 절대경로를 바탕으로 userimage를 불러왔고<br>scaledToHeight()를 통해 높이 기준으로 이미지를 축소 시켰다.<br></td> </tr> <tr> <td class="tg-c3ow">userimage_label<br></td> <td class="tg-0pky">userimage를 widget으로 변환시켜주기 위해 QLabel을 바인딩 시켜놓음.<br></td> </tr> <tr> <td class="tg-c3ow">vstext<br></td> <td class="tg-0pky"><span style="font-weight:400;font-style:normal">"vs"이라는 문자열을 갖는 QLabel을 바인딩한 변수이다.</span><br><span style="font-weight:400;font-style:normal">setStyleSheet, setFont로 문자열의 색, 글꼴, 글자 사이즈, 볼드체를 설정해주었다.</span></td> </tr> <tr> <td class="tg-c3ow">resultimage<br></td> <td class="tg-0pky"><br>QPixmap을 활용하여 절대경로를 바탕으로, 닮은 비율이 가장 높은 otherimage를<br>불러왔고 scaledToHeight()를 통해 높이 기준으로 이미지를 축소 시켰다.<br></td> </tr> <tr> <td class="tg-c3ow">resultimage_label<br></td> <td class="tg-0pky">resultimage를 widget으로 변환시켜주기 위해 QLabel을 바인딩 시켜놓음.</td> </tr> <tr> <td class="tg-c3ow">resultpercentage<br></td> <td class="tg-0pky">QProgressBar를 활용하여 퍼센테이지를 시각화하였다.<br></td> </tr> <tr> <td class="tg-c3ow">leftbox<br></td> <td class="tg-0pky">userimagebox와 userimage_label을 추가할 QVBoxLayout이다.<br></td> </tr> <tr> <td class="tg-c3ow">midbox<br></td> <td class="tg-0pky">vstext를 추가할 QVBoxLayout이다.</td> </tr> <tr> <td class="tg-c3ow">rightbox<br></td> <td class="tg-0pky">resultimagebox와 resultimage_label을 추가할 QVBoxLayout이다.<br></td> </tr> <tr> <td class="tg-c3ow">staticbutton<br></td> <td class="tg-0pky">버튼이 눌리면 결과값의 통계인 BarGraph window를 표시한다.<br></td> </tr> <tr> <td class="tg-c3ow">optionbox<br></td> <td class="tg-0pky">resultpercentage와 staticbutton을 추가할 QHBoxLayout이다.<br></td> </tr> <tr> <td class="tg-c3ow">mainwindow<br></td> <td class="tg-0pky">leftbox, midbox, rightbox 를 추가할 QHBoxLayout이다.<br></td> </tr> <tr> <td class="tg-c3ow">realmainwindow<br></td> <td class="tg-0pky">mainwindow와 optionbox를 추가할 QVBoxLayout이다.<br></td> </tr> <tr> <td class="tg-c3ow" rowspan="3"><br><br>methods</td> <td class="tg-c3ow">**init**()</td> <td class="tg-0pky">선택된 userimage와 가장 비슷한 otherimgae를 표시해줄 window를 띄우는 메소드이다.<br></td> </tr> <tr> <td class="tg-c3ow">buttonClicked()<br></td> <td class="tg-0pky"><span style="font-weight:400;font-style:normal">버튼이 눌리면 버튼의 텍스트에 따라 각각의 기능을 수행하게 만들어 주는 메소드이다.</span></td> </tr> <tr> <td class="tg-c3ow">center</td> <td class="tg-0pky"><span style="font-weight:400;font-style:normal">window를 화면의 중앙에 위치시키는 메소드이다.</span></td> </tr></table>
+
 > ### class Register
 
 <table class="tg"> <tr> <th class="tg-fsme">class Register<br></th> <th class="tg-fsme">이름<br></th> <th class="tg-fsme">역할, 설명<br></th> </tr> <tr> <td class="tg-9wq8" rowspan="9"><br>Attributes<br>(properties)<br></td> <td class="tg-9wq8">namelabel<br></td> <td class="tg-lboi"><span style="font-weight:400;font-style:normal">"Name"이라는 문자열을 갖는 QLabel이다.</span><br></td> </tr> <tr> <td class="tg-9wq8">search</td> <td class="tg-lboi">자신의 이름을 쓸 QLineEdit이다.<br></td> </tr> <tr> <td class="tg-9wq8">userimage<br></td> <td class="tg-lboi"><span style="font-weight:400;font-style:normal">QPixmap을 활용하여 절대경로를 바탕으로 userimage를 불러왔고</span><br><span style="font-weight:400;font-style:normal">scaledToHeight()를 통해 높이 기준으로 이미지를 축소 시켰다. </span><br><span style="font-weight:400;font-style:normal">처음에는 회색 빈 화면을 띄우다가 검색 버튼이 눌리고 난 후</span><br><span style="font-weight:400;font-style:normal">userimage로 변경된다.</span><br></td> </tr> <tr> <td class="tg-9wq8">userimage_label</td> <td class="tg-lboi"><span style="font-weight:400;font-style:normal">userimage를 widget으로 변환시켜주기 위해 QLabel을 바인딩 시켜놓음.</span></td> </tr> <tr> <td class="tg-9wq8">progress<br></td> <td class="tg-lboi"><span style="font-weight:400;font-style:normal">QProgressBar를 활용하여 퍼센테이지를 시각화하였다</span></td> </tr> <tr> <td class="tg-9wq8">combo</td> <td class="tg-lboi">"man", "woman" 을 선택할 combobox를 만들었다.</td> </tr> <tr> <td class="tg-9wq8">searchbutton<br></td> <td class="tg-lboi">namelabel, combo 를 바탕으로 buttonClicked()를 실행한다.<br></td> </tr> <tr> <td class="tg-9wq8">rightlayout<br></td> <td class="tg-lboi">namelabel, search, combo, searchbutton, progress를 추가해줄 QVBoxLayout이다.<br></td> </tr> <tr> <td class="tg-9wq8">mainlayout<br></td> <td class="tg-lboi">userimage_label, rightlayout을 추가할 QHBoxLayout이다.<br></td> </tr> <tr> <td class="tg-c3ow" rowspan="3">methods<br></td> <td class="tg-c3ow">**inint**()</td> <td class="tg-0pky">유저를 등록해줄 window를 띄운다.<br></td> </tr> <tr> <td class="tg-c3ow"><br><br>buttonClicked()</td> <td class="tg-0pky">search, combo의 텍스트를 활용하여, 만약 이 값이 존재한다면 덮어씌우고<br>없다면 이를 dictionary로 만들어 user_lst에 append한다. 그 후 이를 "user_info.txt"에 <br> user_lst를 저장하고 사진을 찍는다. 사진을 찍은 후 userimage를 gray에서 <br>본인 이미지로 변환시킨다.<br></td> </tr> <tr> <td class="tg-c3ow">center</td> <td class="tg-0pky"><span style="font-weight:400;font-style:normal">window를 화면의 중앙에 위치시키는 메소드이다.</span></td> </tr></table>
+
 코딩
------------
+----
 
 https://github.com/ehyeok9/Software-Project-II---AD-project
 
@@ -379,8 +300,7 @@ https://github.com/ehyeok9/Software-Project-II---AD-project
 통합 테스트
 -----------
 
-| Test Case |      UUT       |                         Description                          |
-| :-------: | :------------: | :----------------------------------------------------------: |
-|   UT1-1   | FaceRecogniton |   핵심 알고리즘인 얼굴 인식 기능이 제대로 동작하는지 확인    |
+| Test Case | UUT            | Description                                                           |
+|:---------:|:--------------:|:---------------------------------------------------------------------:|
+|   UT1-1   | FaceRecogniton |        핵심 알고리즘인 얼굴 인식 기능이 제대로 동작하는지 확인        |
 |   IT1-1   |  StartScreen   | 시작화면부터 유저를 등록하고 검사하고 삭제하는 과정까지를 전부 테스트 |
-
